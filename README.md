@@ -24,7 +24,7 @@ The main objective is to learn to create a GAN model from scratch.
 ### Folder
 
 | Folder | Description |
-|-------|------|-------------|
+|-------|------|
 | **dataset** | Contain the dataset, not available in this repo, download at : [CelebFaces](https://www.kaggle.com/datasets/jessicali9530/celeba-dataset) |
 | **ganClass** | Contain all the class of this project |
 | **generated_images** | Image result after training |
