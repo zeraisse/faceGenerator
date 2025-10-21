@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 class FaceGenerator:
@@ -39,6 +40,15 @@ class FaceGenerator:
                 if i % 50 == 0:
                     print(f"[Epoch {epoch}/{epochs}] [Batch {i}/{len(self.dataloader)}] [D loss: {d_loss.item()}] [G loss: {g_loss.item()}]")
             self.generator.save_generated_images(epoch, i, self.fixed_noise)
+            # Save model after each epoch for backup
+            self.save_models(epoch)
+            
+    def save_models(self, epoch, output_dir="saved_models"):
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        torch.save(self.generator.state_dict(), os.path.join(output_dir, f"generator_epoch_{epoch}.pth"))
+        torch.save(self.discriminator.state_dict(), os.path.join(output_dir, f"discriminator_epoch_{epoch}.pth"))
+        print(f"Modèles sauvegardés dans {output_dir} à l'époque {epoch}")
     
 
                 
