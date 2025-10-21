@@ -16,6 +16,8 @@ The main objective is to learn to create a GAN model from scratch.
 | **CelebDataset** | `CelebDataset.py` | The class that transforms and handles my dataset |
 | **Generator** | `Generator.py` | The class that will generate images |
 | **Discriminator** | `Discriminator.py` | The class that is trained to be able to determine if the image is a fake one made by the generator or a real image |
+| **FaceGenerator** | `FaceGenerator.py` | The class that contain mains methods for training loop, save models, save generated images |
+
 
 ---
 
@@ -41,6 +43,8 @@ uv add torch torchvision pillow
 
 1. **Generator** - Creates fake images
 2. **Discriminator** - Distinguishes between real and fake images
+2. **FaceGenerator** - Contain mains methods for training model
+
 
 These two networks compete against each other, improving their performance over time.
 
