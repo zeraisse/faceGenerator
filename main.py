@@ -3,7 +3,6 @@ import torch
 from ganClass import CelebDataset, Generator, Discriminator, FaceGenerator
 from torch.utils.data import DataLoader
 from torchvision import transforms
-import torch.nn as nn
 
 
 # Define the image transformations
@@ -19,16 +18,9 @@ dataset = CelebDataset(root_dir=dataset_path, transform=transform)
 dataloader = DataLoader(dataset, batch_size=128, shuffle=True)
 print(f"Number of images in dataset: {len(dataset)}")
 
-# ## Loss function
-# adversarial_loss = nn.BCELoss()
-
 # Initialize generator and discriminator
 generator = Generator(z_dim=100)
 discriminator = Discriminator()
-
-# optimizer_G = torch.optim.Adam(generator.parameters(), lr=0.0002, betas=(0.5, 0.999))
-# optimizer_D = torch.optim.Adam(discriminator.parameters(), lr=0.0002, betas=(0.5, 0.999))
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 ## log to chek if GPU is detected

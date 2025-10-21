@@ -1,6 +1,3 @@
-
-
-
 import torch
 import torch.nn as nn
 class FaceGenerator:
@@ -24,7 +21,6 @@ class FaceGenerator:
 
                 random_noise = torch.randn(batch_size, 100, device=self.device)
                 fake_imgs = self.generator(random_noise)
-
 
                 # Train Discriminator
                 self.optimizer_D.zero_grad()
