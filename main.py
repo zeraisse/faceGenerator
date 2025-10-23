@@ -34,4 +34,8 @@ else:
 generator.to(device)
 discriminator.to(device)
 face_gan = FaceGenerator(generator, discriminator, dataloader, device)
-face_gan.training_face()
+last_epoch = face_gan.load_latest_models()
+start_epoch = last_epoch + 1 if last_epoch >= 0 else 0
+
+total_epochs = 50
+face_gan.training_face(epochs=total_epochs, start_epoch=start_epoch)

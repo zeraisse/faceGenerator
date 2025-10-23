@@ -1,6 +1,9 @@
 import os
 import torch
 import torch.nn as nn
+import re
+
+
 class FaceGenerator:
     def __init__(self, generator, discriminator, dataloader, device):
         self.generator = generator
@@ -14,8 +17,8 @@ class FaceGenerator:
         self.d_losses = []
 
 
-    def training_face(self, epochs=10):
-        for epoch in range(epochs):
+    def training_face(self, epochs=10, start_epoch=0):
+        for epoch in range(start_epoch, epochs):
             d_loss_epoch = 0.0
             g_loss_epoch = 0.0
             num_batches = 0
@@ -67,6 +70,43 @@ class FaceGenerator:
         torch.save(self.discriminator.state_dict(), os.path.join(output_dir, f"discriminator_epoch_{epoch}.pth"))
         print(f"Modèles sauvegardés dans {output_dir} à l'époque {epoch}")
     
+
+    def load_latest_models(self, output_dir="saved_models"):
+        """
+        Charge les poids les plus récents du générateur et du discriminateur.
+        Retourne le numéro de la dernière époque sauvegardée, ou -1 si aucun modèle trouvé.
+        """
+        if not os.path.exists(output_dir):
+            print(f"📁 Dossier {output_dir} non trouvé. Entraînement depuis zéro.")
+            return -1
+
+        # Liste tous les fichiers generator_epoch_*.pth
+        gen_files = [f for f in os.listdir(output_dir) if f.startswith("generator_epoch_") and f.endswith(".pth")]
+        if not gen_files:
+            print("Aucun modèle sauvegardé trouvé. Entraînement depuis zéro.")
+            return -1
+
+        # Extrait les numéros d'époque
+        epochs = []
+        for f in gen_files:
+            match = re.search(r'epoch_(\d+)\.pth$', f)
+            if match:
+                epochs.append(int(match.group(1)))
+
+        if not epochs:
+            print("Impossible de parser les noms de fichiers. Entraînement depuis zéro.")
+            return -1
+
+        last_epoch = max(epochs)
+        gen_path = os.path.join(output_dir, f"generator_epoch_{last_epoch}.pth")
+        disc_path = os.path.join(output_dir, f"discriminator_epoch_{last_epoch}.pth")
+
+        # Charger les poids
+        self.generator.load_state_dict(torch.load(gen_path, map_location=self.device))
+        self.discriminator.load_state_dict(torch.load(disc_path, map_location=self.device))
+        print(f"Modèles chargés à partir de l'époque {last_epoch}")
+        return last_epoch
+
 
     def plot_losses(self, output_dir="training_plots"):
         import matplotlib.pyplot as plt  
