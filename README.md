@@ -49,6 +49,14 @@ uv add torch torchvision pillow
 
 ---
 
+```bash
+## ONLY FOR GPU ##
+# If GPU availabel install a torch version with CUDA 
+ uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+```
+
+---
+
 ## How GAN Works
 
 **GAN (Generative Adversarial Network)** consists of two antagonist neural networks:

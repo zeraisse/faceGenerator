@@ -10,10 +10,16 @@ class FaceGenerator:
         self.optimizer_G = torch.optim.Adam(generator.parameters(), lr=0.0002, betas=(0.5, 0.999))
         self.optimizer_D = torch.optim.Adam(discriminator.parameters(), lr=0.0002, betas=(0.5, 0.999))
         self.fixed_noise = torch.randn(64, 100).to(self.device)
+        self.g_losses = []
+        self.d_losses = []
 
 
-    def training_face(self, epochs=5):
+    def training_face(self, epochs=10):
         for epoch in range(epochs):
+            d_loss_epoch = 0.0
+            g_loss_epoch = 0.0
+            num_batches = 0
+
             for i, imgs in enumerate(self.dataloader):
                 real_imgs = imgs.to(self.device)
                 batch_size = real_imgs.size(0)
@@ -37,11 +43,22 @@ class FaceGenerator:
                 g_loss.backward()
                 self.optimizer_G.step()
 
+                d_loss_epoch += d_loss.item()
+                g_loss_epoch += g_loss.item()
+                num_batches += 1
+
                 if i % 50 == 0:
                     print(f"[Epoch {epoch}/{epochs}] [Batch {i}/{len(self.dataloader)}] [D loss: {d_loss.item()}] [G loss: {g_loss.item()}]")
+
+            avg_d_loss = d_loss_epoch / num_batches
+            avg_g_loss = g_loss_epoch / num_batches
+            self.d_losses.append(avg_d_loss)
+            self.g_losses.append(avg_g_loss)
+
             self.generator.save_generated_images(epoch, i, self.fixed_noise)
             # Save model after each epoch for backup
             self.save_models(epoch)
+            self.plot_losses()
             
     def save_models(self, epoch, output_dir="saved_models"):
         if not os.path.exists(output_dir):
@@ -50,5 +67,27 @@ class FaceGenerator:
         torch.save(self.discriminator.state_dict(), os.path.join(output_dir, f"discriminator_epoch_{epoch}.pth"))
         print(f"Modèles sauvegardés dans {output_dir} à l'époque {epoch}")
     
+
+    def plot_losses(self, output_dir="training_plots"):
+        import matplotlib.pyplot as plt  
+
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        plt.figure(figsize=(10, 6))
+        plt.plot(self.d_losses, label='Discriminator Loss', marker='o')
+        plt.plot(self.g_losses, label='Generator Loss', marker='o')
+        plt.title('GAN Training Losses')
+        plt.xlabel('Epoch')
+        plt.ylabel('Loss')
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+
+        plot_path = os.path.join(output_dir, "losses.png")
+        plt.savefig(plot_path)
+        print(f"Courbe des pertes sauvegardée dans {plot_path}")
+        plt.close()
+
 
                 

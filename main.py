@@ -24,6 +24,8 @@ discriminator = Discriminator()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 ## log to chek if GPU is detected
+# print("PyTorch version :", torch.__version__)
+# print("CUDA version compilée avec PyTorch :", torch.version.cuda)
 if torch.cuda.is_available():
     print("Nom du GPU :", torch.cuda.get_device_name(0))
 else:
