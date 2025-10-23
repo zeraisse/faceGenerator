@@ -78,7 +78,7 @@ These two networks compete against each other, improving their performance over 
 Analyse : la perte du discriminateur augmente, ce qui indique qu'il devient plus difficile de différencier les images générées des images réelles, tandis que la perte du générateur diminue, montrant que la qualité des images générées s'améliore. La tendance semble s'améliorer puis se stabiliser autour de 15–20 epochs. Pour obtenir de meilleures performances, envisager des techniques avancées.
 
 
-## Résultats — third_generation
+## Résultats
 *Image générée après la première époque : on constate un bruit aléatoire important, les images sont très pixellisées.*
 
 ![epoch_0_batch_1582](generated_images/third_generation/epoch_0_batch_1582.png)
