@@ -77,7 +77,7 @@ class FaceGenerator:
         Retourne le numéro de la dernière époque sauvegardée, ou -1 si aucun modèle trouvé.
         """
         if not os.path.exists(output_dir):
-            print(f"📁 Dossier {output_dir} non trouvé. Entraînement depuis zéro.")
+            print(f"Dossier {output_dir} non trouvé. Entraînement depuis zéro.")
             return -1
 
         # Liste tous les fichiers generator_epoch_*.pth

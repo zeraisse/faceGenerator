@@ -37,5 +37,5 @@ face_gan = FaceGenerator(generator, discriminator, dataloader, device)
 last_epoch = face_gan.load_latest_models()
 start_epoch = last_epoch + 1 if last_epoch >= 0 else 0
 
-total_epochs = 50
+total_epochs = 20
 face_gan.training_face(epochs=total_epochs, start_epoch=start_epoch)

@@ -68,3 +68,26 @@ uv add torch torchvision pillow
 
 These two networks compete against each other, improving their performance over time.
 
+
+## Courbes de perte
+
+![Courbes des pertes pendant l'entraînement](training_plots/losses.png)
+
+*Fichier : training_plots/losses.png*
+
+Analyse : la perte du discriminateur augmente, ce qui indique qu'il devient plus difficile de différencier les images générées des images réelles, tandis que la perte du générateur diminue, montrant que la qualité des images générées s'améliore. La tendance semble s'améliorer puis se stabiliser autour de 15–20 epochs. Pour obtenir de meilleures performances, envisager des techniques avancées.
+
+
+## Résultats — third_generation
+*Image générée après la première époque : on constate un bruit aléatoire important, les images sont très pixellisées.*
+
+![epoch_0_batch_1582](generated_images/third_generation/epoch_0_batch_1582.png)
+
+*Après 5 époques : les visages sont reconnaissables malgré un flou persistant.*
+
+![epoch_5_batch_1582](generated_images/third_generation/epoch_5_batch_1582.png)
+
+*Après 10-20 époques : les traits sont plus nets et la symétrie des visages s'améliore ; le bruit persiste mais est légèrement atténué.*
+
+![epoch_19_batch_1582](generated_images/third_generation/epoch_19_batch_1582.png)
+
