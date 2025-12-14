@@ -53,6 +53,9 @@ uv add torch torchvision pillow
 ## ONLY FOR GPU ##
 # If GPU availabel install a torch version with CUDA 
  uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+ uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+ # en cas de probleme si la carte graphique est trop recente (RTX 5070 TI)
+ $ uv pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu128
 ```
 
 ---

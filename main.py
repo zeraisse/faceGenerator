@@ -22,7 +22,7 @@ torch.set_float32_matmul_precision('high')
 # EPOCHS : 300 époques permettront d'atteindre une très haute qualité avec un DCGAN.
 IMAGE_SIZE = 64
 BATCH_SIZE = 512
-TOTAL_EPOCHS = 300
+TOTAL_EPOCHS = 20
 Z_DIM = 100
 
 # Fonction d'initialisation des poids (Spécifique pour stabiliser les DCGAN)
@@ -48,7 +48,7 @@ if __name__ == '__main__':
     ])
 
     # 2. Chargement du Dataset
-    dataset_path = r".\dataset\img_align_celeba"
+    dataset_path = r".\dataset\img_align_celeba\img_align_celeba"
     
     if not os.path.exists(dataset_path):
         print(f"ERREUR CRITIQUE : Le dossier {dataset_path} n'existe pas !")
