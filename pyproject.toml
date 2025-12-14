@@ -1,8 +1,7 @@
 [project]
 name = "facegenerator"
 version = "0.1.0"
-description = "This project is made in the IPSSI student context to learn how GAN and image generation work. 
-The main objective is to learn to create a GAN model from scratch."
+description = "This project is made in the IPSSI student context to learn how GAN and image generation work. The main objective is to learn to create a GAN model from scratch."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

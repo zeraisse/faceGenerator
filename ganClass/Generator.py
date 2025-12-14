@@ -1,6 +1,6 @@
+import torch
 import torch.nn as nn
 from torchvision.utils import save_image
-import torch
 import os 
 
 class Generator(nn.Module):
@@ -8,11 +8,11 @@ class Generator(nn.Module):
         super(Generator, self).__init__()
         self.model = nn.Sequential(
             nn.Linear(z_dim, 256),
-            nn.ReLU(True),
+            nn.LeakyReLU(0.2, inplace=True), # Optimisation mémoire + gradients
             nn.Linear(256, 512),
-            nn.ReLU(True),
+            nn.LeakyReLU(0.2, inplace=True),
             nn.Linear(512, 1024),
-            nn.ReLU(True),
+            nn.LeakyReLU(0.2, inplace=True),
             nn.Linear(1024, img_channels * 64 * 64),
             nn.Tanh()
         )
