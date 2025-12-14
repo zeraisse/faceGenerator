@@ -1,17 +1,10 @@
 import os
-# On force l'architecture 8.9 (RTX 40 Series)
-# C'est la plus proche techniquement de la Série 50 pour l'instant.
-os.environ["TORCH_CUDA_ARCH_LIST"] = "8.6"
-# On empêche PyTorch de vérifier strictement la carte au démarrage
-# (Sinon il panique en voyant "sm_120")
-os.environ["TORCH_DONT_CHECK_CUDA_ARCH"] = "1"
 import torch
 import torch.nn as nn
 import multiprocessing
 from ganClass import CelebDataset, Generator, Discriminator, FaceGenerator
 from torch.utils.data import DataLoader
 from torchvision import transforms
-
 # --- OPTIMISATION 1 : Utilisation des Tensor Cores (Série 50 - Architecture Blackwell) ---
 # Permet des calculs matriciels beaucoup plus rapides en TF32 sans perte de qualité visible.
 torch.set_float32_matmul_precision('high')
